@@ -1,4 +1,4 @@
-const BackCountry = require("./backcountry.js");
+const BackCountry = require("./game.js/index.js");
 
 window.addEventListener('DOMContentLoaded', (event) => {
   console.log("were in the event listener")

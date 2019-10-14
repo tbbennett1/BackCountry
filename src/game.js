@@ -1,7 +1,7 @@
 // const canvas = document.querySelector('canvas');
 // const ctx = canvas.getContext('2d');
 
-function BackCountry(ctx, canvas){
+function Game(ctx, canvas){
   const cw = canvas.width = window.innerWidth;
   const ch = canvas.height = window.innerHeight;
 
@@ -14,7 +14,7 @@ function BackCountry(ctx, canvas){
   let totalY = 0;
 
   // Draw an obstacle
-  BackCountry.prototype.drawObstacle= function(ctx, type, x, y, h, w) {
+  Game.prototype.drawObstacle= function(ctx, type, x, y, h, w) {
 
     if (type === 'tree') {
 
@@ -45,7 +45,7 @@ function BackCountry(ctx, canvas){
   }
 
   // Create a new obstacle
-  BackCountry.prototype.createObstacle= function() {
+  Game.prototype.createObstacle= function() {
     const obstacleTypes = ['tree', 'mound'];
     const type = obstacleTypes[Math.round(Math.random())];
 
@@ -78,7 +78,7 @@ function BackCountry(ctx, canvas){
   }
 
   // Draw Canvas
-  BackCountry.prototype.draw = function() {
+  Game.prototype.draw = function() {
     ctx.clearRect(0, 0, cw, ch);
     totalY++;
 
@@ -88,7 +88,7 @@ function BackCountry(ctx, canvas){
       ctx.textAlign = "center";
       ctx.fillStyle = '#111213';
       ctx.font = "40px Helvetica";
-      ctx.fillText(`BackCountry`, cw / 2, 60);
+      ctx.fillText(`Game`, cw / 2, 60);
       ctx.font = "20px Helvetica";
       ctx.fillText(`Press an arrow key to start`, cw / 2, 100);
       ctx.font = "16px Helvetica";
@@ -133,7 +133,7 @@ function BackCountry(ctx, canvas){
 
     obstacles.forEach(function (obstacle) {
       // Draw Obstacles
-      BackCountry.prototype.drawObstacle(ctx,
+      Game.prototype.drawObstacle(ctx,
         obstacle.type,
         obstacle.x,
         obstacle.y,
@@ -147,7 +147,7 @@ function BackCountry(ctx, canvas){
         && obstacle.x + obstacle.width / 2 > boarderX
         && obstacle.type == 'tree') {
         console.log('crash!');
-        BackCountry.prototype.stopGame();
+        Game.prototype.stopGame();
         game = false;
 
         ctx.fillStyle = '#9B000F';
@@ -161,7 +161,7 @@ function BackCountry(ctx, canvas){
 
   }
 
-  BackCountry.prototype.handleKey = function(e) {
+  Game.prototype.handleKey = function(e) {
     const key = e.key;
     const keycode = e.keyCode;
 
@@ -178,7 +178,7 @@ function BackCountry(ctx, canvas){
       };
 
       if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
-        BackCountry.prototype.startGame();
+        Game.prototype.startGame();
         game = true;
       }
     }
@@ -189,7 +189,7 @@ function BackCountry(ctx, canvas){
 
   }
 
-  BackCountry.prototype.startGame = function() {
+  Game.prototype.startGame = function() {
     if (!game) {
       console.log('Here we go');
       obstacleInterval = setInterval(this.createObstacle, 50);
@@ -197,18 +197,18 @@ function BackCountry(ctx, canvas){
     }
   }
 
-  BackCountry.prototype.stopGame= function() {
+  Game.prototype.stopGame= function() {
     if (game) {
-      debugger
+
       clearInterval(obstacleInterval);
       clearInterval(gameInterval);
       keys = false;
     }
   }
 
-  document.addEventListener('keydown', BackCountry.prototype.handleKey);
+  document.addEventListener('keydown', Game.prototype.handleKey);
 
   this.draw();
 }
 
-module.exports = BackCountry;
+module.exports = Game;
