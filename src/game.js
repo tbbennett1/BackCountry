@@ -1,223 +1,133 @@
-// const canvas = document.querySelector('canvas');
-// const ctx = canvas.getContext('2d');
 const Obstacles = require("./obstacles.js");
 
 function Game(ctx, canvas){
-  const cw = canvas.width = window.innerWidth;
-  const ch = canvas.height = window.innerHeight;
-
-  let direction = 0;
-  let speed = 1;
-  let boarderX = cw / 2;
-  let obstacles = [];
-  let game = false;
-  let keys = true;
-  let totalY = 0;
-
-  // Draw an obstacle
-  // Game.prototype.drawObstacle= function(ctx, type, x, y, h, w) {
-
-  //   if (type === 'tree') {
-
-  //     ctx.fillStyle = '#624D6E';
-  //     const tree = new Path2D();
-  //     tree.moveTo(x + w / 2, y);
-  //     tree.lineTo(x, y + h * 0.9);
-  //     tree.lineTo(x + w * 0.33, y + h * 0.85);
-  //     tree.lineTo(x + w * 0.33, y + h);
-  //     tree.lineTo(x + w * 0.66, y + h);
-  //     tree.lineTo(x + w * 0.66, y + h * 0.85);
-  //     tree.lineTo(x + w, y + h * 0.9);
-  //     tree.closePath();
-  //     ctx.fill(tree);
-
-  //   } else if (type === 'mound') {
-
-  //     ctx.strokeStyle = '#868999';
-  //     ctx.lineWidth = 1;
-  //     const mound = new Path2D();
-  //     mound.moveTo(x, y);
-  //     // mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-  //     ctx.stroke(mound);
-
-  //   } else {
-  //     console.error('Drawing error');
-  //   }
-  // }
-
-  // Create a new obstacle
-  // Game.prototype.createObstacle= function() {
-  //   const obstacleTypes = ['tree', 'mound'];
-  //   const type = obstacleTypes[Math.round(Math.random())];
-
-  //   if (type === 'tree') {
-  //     const treeHeight = Math.floor(Math.random() * 20) + 25;
-  //     obstacles.push({
-  //       type: 'tree',
-  //       x: Math.round(cw * Math.random()),
-  //       y: ch,
-  //       height: treeHeight,
-  //       width: treeHeight / 2
-  //     });
-  //   } else if (type === 'mound') {
-  //     const moundWidth = Math.floor(Math.random() * 10) + 10;
-  //     obstacles.push({
-  //       type: 'mound',
-  //       x: Math.round(cw * Math.random()),
-  //       y: ch,
-  //       height: moundWidth / 2,
-  //       width: moundWidth
-  //     });
-  //   } else {
-  //     console.error('Creation error');
-  //   }
-
-  //   if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
-  //     obstacles.shift();
-  //   }
-
-  // }
-
-  // Draw Canvas
-  Game.prototype.draw = function() {
-    ctx.clearRect(0, 0, cw, ch);
-    totalY++;
-
-    ctx.fillStyle = '#9B000F';
-
-    if (totalY < 10) {
-      ctx.textAlign = "center";
-      ctx.fillStyle = '#111213';
-      ctx.font = "30px Arial";
-      ctx.fillText(`BackCountry`, cw / 2, 60);
-      ctx.font = "20px Arial";
-      ctx.fillText(`Press an arrow key to start`, cw / 2, 100);
-      ctx.font = "16px Arial";
-      ctx.fillText(`use arrow keys to steer`, cw / 2, 124);
-      ctx.fillStyle = '#E8E9EE';
-    }
-
-    // Score
-    ctx.textAlign = "start";
-    ctx.font = "14px Arial";
-    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} feet`, 10, 25);
-
-    // Draw boarder
-    const boarder = new Path2D();
-    boarder.moveTo(boarderX - 8 - direction * 2, ch / 4);
-    boarder.lineTo(boarderX - 1 - direction * 2, ch / 4);
-    boarder.lineTo(boarderX - 1 + direction * 2, ch / 4 + 25);
-    boarder.lineTo(boarderX - 8 + direction * 2, ch / 4 + 25);
-    boarder.closePath();
-
-    ctx.fill(boarder);
-
-    // Instantiate gameObstacles
-    let gameObstacles = new Obstacles(cw, ch, ctx);
-    // obstacles.createObstacle();
-
-    // Creat some obstacles
-    gameObstacles.createObstacle(obstacles).map(function (obstacle) {
-      return {
-        type: obstacle.type,
-        x: obstacle.x,
-        y: obstacle.y - speed,
-        height: obstacle.height,
-        width: obstacle.width
-      }
-    });
-
-    // Update boarder position and make sure it stay in the window
-    if (boarderX < 0) {
-      boarderX += Math.abs(direction / 2);
-    } else if (boarderX > cw) {
-      boarderX -= Math.abs(direction / 2);
-    } else {
-      boarderX += direction / 2;
-    }
-
-    // debugger
-    obstacles.forEach(function (obstacle) {
-      // Draw Obstacles
-      debugger
-      let obs = gameObstacles.drawObstacle(//ctx, 
-                              obstacle.type, 
-                              obstacle.x, 
-                              obstacle.y, 
-                              obstacle.height, 
-                              obstacle.width)
-      // debugger
-      // ctx.fill(obs);
-      // debugger
-      // Detect Crash
-      // if (obstacle.y + obstacle.height > ch / 4 - 16
-      //   && obstacle.y < ch / 4
-      //   && obstacle.x - obstacle.width / 2 < boarderX
-      //   && obstacle.x + obstacle.width / 2 > boarderX
-      //   && obstacle.type == 'tree') {
-      //   console.log('crash!');
-      //   Game.prototype.stop();
-      //   game = false;
-
-      //   ctx.fillStyle = '#9B000F';
-      //   ctx.font = "16px Helvetica";
-      //   ctx.fillText(`Game Over`, 10, 60);
-      //   ctx.fillStyle = '#111213';
-      //   ctx.fillText(`You traveled a total of ${Math.floor((totalY - 1) / 4)} feet.`, 10, 80);
-      //   ctx.fillText(`Press space to restart.`, 10, 100);
-      // }
-    });
-
-  }
-
-  Game.prototype.handleKey = function(e) {
-    const key = e.key;
-    const keycode = e.keyCode;
-
-    if (keys) {
-      if (key === "ArrowLeft" && direction > -2) {
-        direction--;
-      } else if (key === "ArrowRight" && direction < 2) {
-        direction++;
-      }
-      else if (key === "ArrowDown"){
-        speed++;
-      }else if (key === "ArrowUp"){
-        speed--;
-      };
-
-      if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
-        Game.prototype.start();
-        game = true;
-      }
-    }
-
-    if (keycode === 32 && game === false) {
-      window.location.reload(true);
-    }
-
-  }
-
-  Game.prototype.start = function() {
-    if (!game) {
-      console.log('Here we go');
-      obstacleInterval = setInterval(this.createObstacle, 50);
-      gameInterval = setInterval(this.draw, 1);
-    }
-  }
-
-  Game.prototype.stop= function() {
-    if (game) {
-
-      clearInterval(obstacleInterval);
-      clearInterval(gameInterval);
-      keys = false;
-    }
-  }
-
-  document.addEventListener('keydown', Game.prototype.handleKey);
-
+  this.ctx = ctx;
+  this.cw = canvas.width = window.innerWidth;
+  this.ch = canvas.height = window.innerHeight;
+  this.direction = 0;
+  this.speed = 1;
+  this.boarderX = this.cw / 2;
+  this.obstacles = [];
+  this.game = false;
+  this.keys = true;
+  this.totalY = 0;
+  document.addEventListener('keydown', this.handleEvent.bind(this));
   this.draw();
 }
+
+
+Game.prototype.draw = function draw() {
+  const cw = this.cw;
+  const ch = this.ch;
+  const ctx = this.ctx;
+  ctx.clearRect(0, 0, cw, ch);
+  this.totalY++;
+
+
+  ctx.fillStyle = '#9B000F';
+
+  if (this.totalY < 10) {
+    ctx.textAlign = "center";
+    ctx.fillStyle = '#111213';
+    ctx.font = "30px Arial";
+    ctx.fillText(`BackCountry`, cw / 2, 60);
+    ctx.font = "20px Arial";
+    ctx.fillText(`Press an arrow key to start`, cw / 2, 100);
+    ctx.font = "16px Arial";
+    ctx.fillText(`use arrow keys to steer`, cw / 2, 124);
+    ctx.fillStyle = '#E8E9EE';
+  }
+
+  // Score
+  ctx.textAlign = "start";
+  ctx.font = "14px Arial";
+  ctx.fillText(`Score: ${Math.floor((this.totalY - 1) / 4)} feet`, 25, 40);
+
+  // Draw boarder
+  const boarder = new Path2D();
+  boarder.moveTo(this.boarderX - 8 - this.direction * 2, ch / 4);
+  boarder.lineTo(this.boarderX - 1 - this.direction * 2, ch / 4);
+  boarder.lineTo(this.boarderX - 1 + this.direction * 2, ch / 4 + 25);
+  boarder.lineTo(this.boarderX - 8 + this.direction * 2, ch / 4 + 25);
+  boarder.closePath();
+
+  ctx.fill(boarder);
+
+  // obstacles.createObstacle();
+
+  // Creat some obstacles
+  // gameObstacles.createObstacle(obstacles).map(function (obstacle) {
+  //   return {
+  //     type: obstacle.type,
+  //     x: obstacle.x,
+  //     y: obstacle.y - speed,
+  //     height: obstacle.height,
+  //     width: obstacle.width
+  //   }
+  // });
+
+  // Keep boarder within window
+  if (this.boarderX < 0) {
+    this.boarderX += Math.abs(this.direction / 2);
+  } else if (this.boarderX > cw) {
+    this.boarderX -= Math.abs(this.direction / 2);
+  } else {
+    this.boarderX += this.direction / 2;
+  }
+
+  // Instantiate and Draw Obstacles
+  let gameObstacles = new Obstacles(cw, ch, ctx);
+  this.obstacles.forEach(function (obstacle) {
+    gameObstacles.drawObstacle(obstacle.type, obstacle.x, obstacle.y, obstacle.height, obstacle.width)
+  });
+
+}
+
+Game.prototype.handleEvent = function handleEvent(e) {
+  const key = e.key;
+  const keycode = e.keyCode;
+
+  if (this.keys) {
+    if (key === "ArrowLeft" && this.direction > -2) {
+      this.direction--;
+    } else if (key === "ArrowRight" && this.direction < 2) {
+      this.direction++;
+    }
+    else if (key === "ArrowDown"){
+      speed++;
+    }else if (key === "ArrowUp"){
+      speed--;
+    };
+
+    if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
+      this.start();
+      this.game = true;
+    }
+  }
+
+  if (keycode === 32 && this.game === false) {
+    window.location.reload(true);
+  }
+
+}
+
+
+Game.prototype.start = function start() {
+  if (!this.game) {
+    obstacleInterval = setInterval(Obstacles.createObstacle, 50);
+    gameInterval = setInterval(this.draw.bind(this), 1);
+  }
+}
+
+Game.prototype.stop = function stop() {
+  if (this.game) {
+
+    clearInterval(obstacleInterval);
+    clearInterval(gameInterval);
+    // this.keys = false;
+  }
+}
+
+// document.addEventListener('keydown', Game.prototype.handleEvent);
 
 module.exports = Game;

@@ -4,7 +4,7 @@ function Obstacles(cw, ch, ctx) {
   Obstacles.prototype.drawObstacle = function (type, x, y, h, w) {
 
     if (type === 'tree') {
-      debugger
+
       ctx.fillStyle = '#624D6E';
       const tree = new Path2D();
       tree.moveTo(x + w / 2, y);
