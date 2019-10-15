@@ -1,5 +1,6 @@
 // const canvas = document.querySelector('canvas');
 // const ctx = canvas.getContext('2d');
+const Obstacles = require("./obstacles.js");
 
 function Game(ctx, canvas){
   const cw = canvas.width = window.innerWidth;
@@ -14,68 +15,68 @@ function Game(ctx, canvas){
   let totalY = 0;
 
   // Draw an obstacle
-  Game.prototype.drawObstacle= function(ctx, type, x, y, h, w) {
+  // Game.prototype.drawObstacle= function(ctx, type, x, y, h, w) {
 
-    if (type === 'tree') {
+  //   if (type === 'tree') {
 
-      ctx.fillStyle = '#624D6E';
-      const tree = new Path2D();
-      tree.moveTo(x + w / 2, y);
-      tree.lineTo(x, y + h * 0.9);
-      tree.lineTo(x + w * 0.33, y + h * 0.85);
-      tree.lineTo(x + w * 0.33, y + h);
-      tree.lineTo(x + w * 0.66, y + h);
-      tree.lineTo(x + w * 0.66, y + h * 0.85);
-      tree.lineTo(x + w, y + h * 0.9);
-      tree.closePath();
-      ctx.fill(tree);
+  //     ctx.fillStyle = '#624D6E';
+  //     const tree = new Path2D();
+  //     tree.moveTo(x + w / 2, y);
+  //     tree.lineTo(x, y + h * 0.9);
+  //     tree.lineTo(x + w * 0.33, y + h * 0.85);
+  //     tree.lineTo(x + w * 0.33, y + h);
+  //     tree.lineTo(x + w * 0.66, y + h);
+  //     tree.lineTo(x + w * 0.66, y + h * 0.85);
+  //     tree.lineTo(x + w, y + h * 0.9);
+  //     tree.closePath();
+  //     ctx.fill(tree);
 
-    } else if (type === 'mound') {
+  //   } else if (type === 'mound') {
 
-      ctx.strokeStyle = '#868999';
-      ctx.lineWidth = 1;
-      const mound = new Path2D();
-      mound.moveTo(x, y);
-      mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-      ctx.stroke(mound);
+  //     ctx.strokeStyle = '#868999';
+  //     ctx.lineWidth = 1;
+  //     const mound = new Path2D();
+  //     mound.moveTo(x, y);
+  //     // mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+  //     ctx.stroke(mound);
 
-    } else {
-      console.error('Drawing error');
-    }
-  }
+  //   } else {
+  //     console.error('Drawing error');
+  //   }
+  // }
 
   // Create a new obstacle
-  Game.prototype.createObstacle= function() {
-    const obstacleTypes = ['tree', 'mound'];
-    const type = obstacleTypes[Math.round(Math.random())];
+  // Game.prototype.createObstacle= function() {
+  //   const obstacleTypes = ['tree', 'mound'];
+  //   const type = obstacleTypes[Math.round(Math.random())];
 
-    if (type === 'tree') {
-      const treeHeight = Math.floor(Math.random() * 20) + 25;
-      obstacles.push({
-        type: 'tree',
-        x: Math.round(cw * Math.random()),
-        y: ch,
-        height: treeHeight,
-        width: treeHeight / 2
-      });
-    } else if (type === 'mound') {
-      const moundWidth = Math.floor(Math.random() * 10) + 10;
-      obstacles.push({
-        type: 'mound',
-        x: Math.round(cw * Math.random()),
-        y: ch,
-        height: moundWidth / 2,
-        width: moundWidth
-      });
-    } else {
-      console.error('Creation error');
-    }
+  //   if (type === 'tree') {
+  //     const treeHeight = Math.floor(Math.random() * 20) + 25;
+  //     obstacles.push({
+  //       type: 'tree',
+  //       x: Math.round(cw * Math.random()),
+  //       y: ch,
+  //       height: treeHeight,
+  //       width: treeHeight / 2
+  //     });
+  //   } else if (type === 'mound') {
+  //     const moundWidth = Math.floor(Math.random() * 10) + 10;
+  //     obstacles.push({
+  //       type: 'mound',
+  //       x: Math.round(cw * Math.random()),
+  //       y: ch,
+  //       height: moundWidth / 2,
+  //       width: moundWidth
+  //     });
+  //   } else {
+  //     console.error('Creation error');
+  //   }
 
-    if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
-      obstacles.shift();
-    }
+  //   if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
+  //     obstacles.shift();
+  //   }
 
-  }
+  // }
 
   // Draw Canvas
   Game.prototype.draw = function() {
@@ -87,18 +88,18 @@ function Game(ctx, canvas){
     if (totalY < 10) {
       ctx.textAlign = "center";
       ctx.fillStyle = '#111213';
-      ctx.font = "40px Helvetica";
-      ctx.fillText(`Game`, cw / 2, 60);
-      ctx.font = "20px Helvetica";
+      ctx.font = "30px Arial";
+      ctx.fillText(`BackCountry`, cw / 2, 60);
+      ctx.font = "20px Arial";
       ctx.fillText(`Press an arrow key to start`, cw / 2, 100);
-      ctx.font = "16px Helvetica";
-      ctx.fillText(`Use ← and → to steer`, cw / 2, 124);
+      ctx.font = "16px Arial";
+      ctx.fillText(`use arrow keys to steer`, cw / 2, 124);
       ctx.fillStyle = '#E8E9EE';
     }
 
     // Score
     ctx.textAlign = "start";
-    ctx.font = "14px Helvetica";
+    ctx.font = "14px Arial";
     ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} feet`, 10, 25);
 
     // Draw boarder
@@ -111,8 +112,12 @@ function Game(ctx, canvas){
 
     ctx.fill(boarder);
 
-    // Update obstacle postions
-    obstacles = obstacles.map(function (obstacle) {
+    // Instantiate gameObstacles
+    let gameObstacles = new Obstacles(cw, ch, ctx);
+    // obstacles.createObstacle();
+
+    // Creat some obstacles
+    gameObstacles.createObstacle(obstacles).map(function (obstacle) {
       return {
         type: obstacle.type,
         x: obstacle.x,
@@ -131,32 +136,36 @@ function Game(ctx, canvas){
       boarderX += direction / 2;
     }
 
+    // debugger
     obstacles.forEach(function (obstacle) {
       // Draw Obstacles
-      Game.prototype.drawObstacle(ctx,
-        obstacle.type,
-        obstacle.x,
-        obstacle.y,
-        obstacle.height,
-        obstacle.width);
-
+      debugger
+      let obs = gameObstacles.drawObstacle(//ctx, 
+                              obstacle.type, 
+                              obstacle.x, 
+                              obstacle.y, 
+                              obstacle.height, 
+                              obstacle.width)
+      // debugger
+      // ctx.fill(obs);
+      // debugger
       // Detect Crash
-      if (obstacle.y + obstacle.height > ch / 4 - 16
-        && obstacle.y < ch / 4
-        && obstacle.x - obstacle.width / 2 < boarderX
-        && obstacle.x + obstacle.width / 2 > boarderX
-        && obstacle.type == 'tree') {
-        console.log('crash!');
-        Game.prototype.stopGame();
-        game = false;
+      // if (obstacle.y + obstacle.height > ch / 4 - 16
+      //   && obstacle.y < ch / 4
+      //   && obstacle.x - obstacle.width / 2 < boarderX
+      //   && obstacle.x + obstacle.width / 2 > boarderX
+      //   && obstacle.type == 'tree') {
+      //   console.log('crash!');
+      //   Game.prototype.stop();
+      //   game = false;
 
-        ctx.fillStyle = '#9B000F';
-        ctx.font = "16px Helvetica";
-        ctx.fillText(`Game Over`, 10, 60);
-        ctx.fillStyle = '#111213';
-        ctx.fillText(`You traveled a total of ${Math.floor((totalY - 1) / 4)} feet.`, 10, 80);
-        ctx.fillText(`Press space to restart.`, 10, 100);
-      }
+      //   ctx.fillStyle = '#9B000F';
+      //   ctx.font = "16px Helvetica";
+      //   ctx.fillText(`Game Over`, 10, 60);
+      //   ctx.fillStyle = '#111213';
+      //   ctx.fillText(`You traveled a total of ${Math.floor((totalY - 1) / 4)} feet.`, 10, 80);
+      //   ctx.fillText(`Press space to restart.`, 10, 100);
+      // }
     });
 
   }
@@ -178,7 +187,7 @@ function Game(ctx, canvas){
       };
 
       if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
-        Game.prototype.startGame();
+        Game.prototype.start();
         game = true;
       }
     }
@@ -189,7 +198,7 @@ function Game(ctx, canvas){
 
   }
 
-  Game.prototype.startGame = function() {
+  Game.prototype.start = function() {
     if (!game) {
       console.log('Here we go');
       obstacleInterval = setInterval(this.createObstacle, 50);
@@ -197,7 +206,7 @@ function Game(ctx, canvas){
     }
   }
 
-  Game.prototype.stopGame= function() {
+  Game.prototype.stop= function() {
     if (game) {
 
       clearInterval(obstacleInterval);
