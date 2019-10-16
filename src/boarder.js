@@ -5,6 +5,8 @@ class Boarder {
     this.ch = ch;
     this.direction = direction;
     this.boarderX = this.cw / 2;
+
+    document.addEventListener('keydown', this.handleEvent.bind(this));
   }
 
 
@@ -29,6 +31,32 @@ class Boarder {
     // let gameObstacles = new Obstacles(cw, ch, ctx);
     // this.gameObstacles.drawObstacle();
   }
+
+  handleEvent(e) {
+    const key = e.key;
+    const keycode = e.keyCode;
+    if (key === "ArrowLeft" && this.direction > -2) {
+      this.direction--;
+    }
+    else if (key === "ArrowRight" && this.direction < 2) {
+      debugger;
+      this.direction++;
+    }
+    // else if (key === "ArrowDown"){
+    //   this.speed++;
+    // }else if (key === "ArrowUp"){
+    //   this.speed--;
+    // };
+    if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
+      this.start();
+      // this.game = true;
+    }
+    if (keycode === 32 && this.game === false) {
+      window.location.reload(true);
+    }
+  }
+
+  
 }
 
 export default Boarder;
