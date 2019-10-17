@@ -17,9 +17,6 @@ class Boarder{
     const james = new Image();
     james.src = "../james.png";
     let boarderPosY = this.ch / 6;
-    // let frameIndex = Math.floor(Math.random() * 4) * 25;
-    // let obsPosX = Math.floor(Math.random() * this.cw);
-    // let obsPosY = Math.floor(Math.random() * this.ch);
 
     if(this.direction === 0){
       this.ctx.drawImage(
@@ -30,8 +27,8 @@ class Boarder{
         25,
         this.boarderPosX,
         boarderPosY,
-        75,
-        75);
+        60,
+        60);
     }else if(this.direction < 0 && this.direction > -11){
       this.ctx.drawImage(
         james,
@@ -41,8 +38,8 @@ class Boarder{
         25,
         this.boarderPosX,
         boarderPosY,
-        75,
-        75);
+        60,
+        60);
     } else if (this.direction > 0 && this.direction < 11){
       this.ctx.drawImage(
         james,
@@ -52,8 +49,8 @@ class Boarder{
         25,
         this.boarderPosX,
         boarderPosY,
-        75,
-        75);
+        60,
+        60);
     }else if (this.direction < -11){
       this.ctx.drawImage(
         james,
@@ -63,8 +60,8 @@ class Boarder{
         25,
         this.boarderPosX,
         boarderPosY,
-        75,
-        75);
+        60,
+        60);
     }else if (this.direction > 11) {
       this.ctx.drawImage(
         james,
@@ -74,8 +71,8 @@ class Boarder{
         25,
         this.boarderPosX,
         boarderPosY,
-        75,
-        75);
+        60,
+        60);
     }
     //keep boarder in bounds
     if(this.boarderPosX < 0) {
