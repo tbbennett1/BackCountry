@@ -1,58 +1,99 @@
-class Boarder {
-  constructor(cw, ch, ctx, direction) {
+import Game from "./game";
+
+class Boarder{
+  constructor(cw, ch, ctx) {
     this.ctx = ctx;
     this.cw = cw;
     this.ch = ch;
-    this.direction = direction;
-    this.boarderX = this.cw / 2;
+    this.direction = 0;
+    this.boarderPosX = this.cw / 2;
 
     document.addEventListener('keydown', this.handleEvent.bind(this));
   }
 
 
   draw() {
-    const boarder = new Path2D();
-    boarder.moveTo(this.boarderX - 8 - this.direction * 2, this.ch / 4);
-    boarder.lineTo(this.boarderX - 1 - this.direction * 2, this.ch / 4);
-    boarder.lineTo(this.boarderX - 1 + this.direction * 2, this.ch / 4 + 25);
-    boarder.lineTo(this.boarderX - 8 + this.direction * 2, this.ch / 4 + 25);
-    boarder.closePath();
-    this.ctx.fillStyle = 'black';
-    this.ctx.fill(boarder);
-    
-    if(this.boarderX < 0) {
-      this.boarderX += Math.abs(this.direction / 2);
-    }else if(this.boarderX > this.cw) {
-    this.boarderX -= Math.abs(this.direction / 2);
-    }else {
-      this.boarderX += this.direction / 2;
+    // debugger
+    const james = new Image();
+    james.src = "../james.png";
+    let boarderPosY = this.ch / 6;
+    // let frameIndex = Math.floor(Math.random() * 4) * 25;
+    // let obsPosX = Math.floor(Math.random() * this.cw);
+    // let obsPosY = Math.floor(Math.random() * this.ch);
+
+    if(this.direction === 0){
+      this.ctx.drawImage(
+        james,
+        0,
+        0,
+        25,
+        25,
+        this.boarderPosX,
+        boarderPosY,
+        75,
+        75);
+    }else if(this.direction < 0 && this.direction > -11){
+      this.ctx.drawImage(
+        james,
+        25,
+        0,
+        25,
+        25,
+        this.boarderPosX,
+        boarderPosY,
+        75,
+        75);
+    } else if (this.direction > 0 && this.direction < 11){
+      this.ctx.drawImage(
+        james,
+        50,
+        0,
+        25,
+        25,
+        this.boarderPosX,
+        boarderPosY,
+        75,
+        75);
+    }else if (this.direction < -11){
+      this.ctx.drawImage(
+        james,
+        75,
+        0,
+        25,
+        25,
+        this.boarderPosX,
+        boarderPosY,
+        75,
+        75);
+    }else if (this.direction > 11) {
+      this.ctx.drawImage(
+        james,
+        100,
+        0,
+        25,
+        25,
+        this.boarderPosX,
+        boarderPosY,
+        75,
+        75);
     }
-    // Draw Obstacles
-    // let gameObstacles = new Obstacles(cw, ch, ctx);
-    // this.gameObstacles.drawObstacle();
+    //keep boarder in bounds
+    if(this.boarderPosX < 0) {
+      this.boarderPosX += Math.abs(this.direction / 2);
+    }else if(this.boarderPosX > this.cw) {
+    this.boarderPosX -= Math.abs(this.direction / 2);
+    }else {
+      this.boarderPosX += this.direction / 2;
+    }
   }
 
   handleEvent(e) {
     const key = e.key;
-    const keycode = e.keyCode;
-    if (key === "ArrowLeft" && this.direction > -2) {
-      this.direction--;
-    }
-    else if (key === "ArrowRight" && this.direction < 2) {
-      debugger;
-      this.direction++;
-    }
-    // else if (key === "ArrowDown"){
-    //   this.speed++;
-    // }else if (key === "ArrowUp"){
-    //   this.speed--;
-    // };
-    if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
-      this.start();
-      // this.game = true;
-    }
-    if (keycode === 32 && this.game === false) {
-      window.location.reload(true);
+ 
+    if(key === "ArrowLeft" && this.direction > -11) { 
+      this.direction = this.direction - 10;
+    }else if(key === "ArrowRight" && this.direction < 11 ) {
+      this.direction = this.direction + 10;
     }
   }
 

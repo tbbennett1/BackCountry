@@ -6,14 +6,25 @@ class Obstacles {
     this.obsImage = new Image();
     this.obsImage.src = "../Obstacles.png";
   }
-  
-  drawObstacle() {
+
+  draw(obsPosY) {
     // debugger
     let frameIndex = Math.floor(Math.random() * 4) * 50;
     let obsPosX = Math.floor(Math.random() * this.cw);
-    let obsPosY = Math.floor(Math.random() * this.ch);
-    this.ctx.drawImage(this.obsImage, frameIndex, 0, 50, 50, obsPosX, obsPosY, 50, 50);
+    // let obsPosY = Math.floor(Math.random() * this.ch);
+
+    this.ctx.drawImage(
+      this.obsImage, 
+      frameIndex, 
+      0, 
+      50, 
+      50, 
+      obsPosX, 
+      obsPosY, 
+      50, 
+      50);
   }
+
 }
 
 export default Obstacles;
