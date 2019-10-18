@@ -8,6 +8,7 @@ class Game {
     this.ch = canvas.height = window.innerHeight;
     this.score = 0;
     this.game = false;
+    this.obstacles = [];
     this.obsPosY = this.ch - 50;
     this.boarder = new Boarder(this.cw, this.ch, ctx);
     this.gameObstacles = new Obstacles(this.cw, this.ch, ctx);
@@ -21,7 +22,7 @@ class Game {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, cw, ch);
     this.score++;
-
+    //Welcome Screen
     const title = ctx.createLinearGradient(cw / 4, ch / 4, (2/4) * cw, (2/4) * ch);
     title.addColorStop(0.6, "black");
     title.addColorStop(1, "green");
@@ -42,12 +43,21 @@ class Game {
     ctx.fillStyle = 'darkgreen';
     ctx.fillText(`Score: ${Math.floor((this.score - 1) / 5)} feet`, 40, 50);
 
-    if(this.obsPosY < ch){
-      this.obsPosY = this.obsPosY - 2;
+    // if(this.obsPosY < ch){
+    //   this.obsPosY = this.obsPosY - 2;
+    // }
+    //Level 1
+    for(let i = 0; this.obstacles.length < 10000; i++){
+      this.obstacles.push(this.gameObstacles.newObstacle());
     }
+    this.obstacles.forEach(obstacle => {
+      obstacle.posY = obstacle.posY - 5;
+      this.gameObstacles.draw(obstacle);
+    })
+    // debugger
     this.boarder.draw();
-    this.gameObstacles.draw();
-    debugger
+    
+
   }
 
   handleEvent(e) {
@@ -61,8 +71,8 @@ class Game {
   }
 
   start() {
-    setInterval(this.gameObstacles.draw.call(this, this.obsPosY), 200);
-    // setInterval(this.draw.bind(this), 20);
+    // setInterval(this.gameObstacles.draw.call(this, this.obsPosY), 200);
+    setInterval(this.draw.bind(this), 20);
   }
 
 // stop() {
