@@ -12,7 +12,6 @@ class Boarder{
   }
 
   draw() {
-    // debugger
     let frame = 0;
     const james = new Image();
     james.src = "../james.png";
@@ -28,7 +27,7 @@ class Boarder{
     }else if (this.direction > 6) {
       frame = 100;
     }
-
+    // make James 50px for now
     this.ctx.drawImage(
       james,
       frame,
@@ -40,7 +39,7 @@ class Boarder{
       50,
       50);
 
-    //keep boarder in bounds
+    // keep boarder in bounds
     if(this.posX < 0) {
       this.posX += Math.abs(this.direction / 2);
     }else if(this.posX > this.cw) {

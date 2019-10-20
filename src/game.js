@@ -16,7 +16,7 @@ class Game {
     
     this.draw();
   }
-  
+
   draw() {
     const cw = this.cw;
     const ch = this.ch;
@@ -62,7 +62,7 @@ class Game {
         this.handleCrash();
       }
     })
-    // debugger
+
     this.boarder.draw();
   }
 

@@ -3,7 +3,6 @@ class Obstacles {
     this.cw = cw;
     this.ch = ch;
     this.ctx = ctx;
-    // this.obstacles = [];
   }
 
   newObstacle() {
@@ -17,10 +16,6 @@ class Obstacles {
       posX: Math.floor(Math.random() * this.cw),
       posY: this.ch + Math.floor(Math.random() * this.ch),
     })
-
-  // if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
-  //   obstacles.shift();
-  // }
   }
 
   draw(obstacle) { 
@@ -35,7 +30,6 @@ class Obstacles {
       75, 
       75);
   }
-
 }
 
 export default Obstacles;
