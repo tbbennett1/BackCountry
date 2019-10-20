@@ -5,9 +5,12 @@
   },
   "scripts": {
     "postinstall": "webpack",
-    "start": "open ./dist/index.html"
+    "start": "npm run open",
+    "open": "concurrently \"http-server -a localhost -p 1234\" \"open http://localhost:1234/dist/index.html\""
   },
   "dependencies": {
+    "concurrently": "^5.0.0",
+    "http-server": "^0.11.1",
     "webpack": "^4.41.2"
   }
 }

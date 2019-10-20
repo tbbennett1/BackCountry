@@ -1,4 +1,3 @@
-// const Game = require("./game.js");
 import Game from "./game.js";
 
 window.addEventListener('DOMContentLoaded', (event) => {
