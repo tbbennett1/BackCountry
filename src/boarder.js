@@ -6,91 +6,57 @@ class Boarder{
     this.cw = cw;
     this.ch = ch;
     this.direction = 0;
-    this.boarderPosX = this.cw / 2;
-
+    this.posX = this.cw / 2;
+    this.posY = this.ch / 6;
     document.addEventListener('keydown', this.handleEvent.bind(this));
   }
 
-
   draw() {
     // debugger
+    let frame = 0;
     const james = new Image();
     james.src = "../james.png";
-    let boarderPosY = this.ch / 6;
 
     if(this.direction === 0){
-      this.ctx.drawImage(
-        james,
-        0,
-        0,
-        25,
-        25,
-        this.boarderPosX,
-        boarderPosY,
-        60,
-        60);
-    }else if(this.direction < 0 && this.direction > -11){
-      this.ctx.drawImage(
-        james,
-        25,
-        0,
-        25,
-        25,
-        this.boarderPosX,
-        boarderPosY,
-        60,
-        60);
-    } else if (this.direction > 0 && this.direction < 11){
-      this.ctx.drawImage(
-        james,
-        50,
-        0,
-        25,
-        25,
-        this.boarderPosX,
-        boarderPosY,
-        60,
-        60);
-    }else if (this.direction < -11){
-      this.ctx.drawImage(
-        james,
-        75,
-        0,
-        25,
-        25,
-        this.boarderPosX,
-        boarderPosY,
-        60,
-        60);
-    }else if (this.direction > 11) {
-      this.ctx.drawImage(
-        james,
-        100,
-        0,
-        25,
-        25,
-        this.boarderPosX,
-        boarderPosY,
-        60,
-        60);
+      frame = 0;
+    }else if(this.direction < 0 && this.direction > -6){
+      frame = 25;
+    } else if (this.direction > 0 && this.direction < 6){
+      frame = 50;
+    }else if (this.direction < -6){
+      frame = 75;
+    }else if (this.direction > 6) {
+      frame = 100;
     }
+
+    this.ctx.drawImage(
+      james,
+      frame,
+      0,
+      25,
+      25,
+      this.posX,
+      this.posY,
+      50,
+      50);
+
     //keep boarder in bounds
-    if(this.boarderPosX < 0) {
-      this.boarderPosX += Math.abs(this.direction / 2);
-    }else if(this.boarderPosX > this.cw) {
-    this.boarderPosX -= Math.abs(this.direction / 2);
+    if(this.posX < 0) {
+      this.posX += Math.abs(this.direction / 2);
+    }else if(this.posX > this.cw) {
+    this.posX -= Math.abs(this.direction / 2);
     }else {
-      this.boarderPosX += this.direction / 2;
+      this.posX += this.direction / 2;
     }
   }
 
   handleEvent(e) {
     const key = e.key;
  
-    if(key === "ArrowLeft" && this.direction > -11) { 
-      this.direction = this.direction - 10;
-    }else if(key === "ArrowRight" && this.direction < 11 ) {
-      this.direction = this.direction + 10;
+    if(key === "ArrowLeft" && this.direction > -6) { 
+      this.direction = this.direction - 5;
+    }else if(key === "ArrowRight" && this.direction < 6 ) {
+      this.direction = this.direction + 5;
     }
   }
 

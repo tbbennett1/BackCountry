@@ -9,13 +9,13 @@ class Obstacles {
   newObstacle() {
     let obsImage = new Image();
     obsImage.src = "../Obstacles.png";
-    let frameIndex = Math.floor(Math.random() * 4) * 50;
+    let frameIndex = Math.floor(Math.random() * 5) * 50;
   
     return ({
       obs: obsImage,
       frame: frameIndex,
       posX: Math.floor(Math.random() * this.cw),
-      posY: this.ch + Math.floor(Math.random() * (this.ch * 1000)),
+      posY: this.ch + Math.floor(Math.random() * this.ch),
     })
 
   // if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
@@ -24,7 +24,6 @@ class Obstacles {
   }
 
   draw(obstacle) { 
-    // debugger
     this.ctx.drawImage(
       obstacle.obs, 
       obstacle.frame, 
@@ -33,8 +32,8 @@ class Obstacles {
       50, 
       obstacle.posX, 
       obstacle.posY, 
-      50, 
-      50);
+      75, 
+      75);
   }
 
 }
