@@ -5,5 +5,8 @@
   },
   "scripts": {
     "postinstall": "webpack"
+  },
+  "dependencies": {
+    "webpack": "^4.41.2"
   }
 }
