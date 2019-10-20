@@ -45,7 +45,7 @@ class Game {
     ctx.fillStyle = 'darkgreen';
     ctx.fillText(`Score: ${Math.floor((this.score - 1) / 5)} feet`, 40, 50);
     //Level 1
-    for(let i = 0; this.obstacles.length < 10; i++){
+    for(let i = 0; this.obstacles.length < 20; i++){
       this.obstacles.push(this.gameObstacles.newObstacle());
     }
     //Delete obstacles that are off screen
