@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "webpack",
     "start": "npm run open",
-    "open": "concurrently \"http-server -a localhost -p 1234\" \"open http://localhost:1234/dist/index.html\""
+    "open": "open ./dist/index.html"
   },
   "dependencies": {
     "concurrently": "^5.0.0",
