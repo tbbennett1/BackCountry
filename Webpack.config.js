@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./dist/index.html",
+  entry: "./src/index.js",
   output: {
     filename: "./dist/main.js"
   },
