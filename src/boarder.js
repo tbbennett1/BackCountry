@@ -1,5 +1,3 @@
-import Game from "./game";
-
 class Boarder{
   constructor(cw, ch, ctx) {
     this.ctx = ctx;
