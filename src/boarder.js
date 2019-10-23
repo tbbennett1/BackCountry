@@ -12,7 +12,7 @@ class Boarder{
   draw() {
     let frame = 0;
     const james = new Image();
-    james.src = "../james.png";
+    james.src = "./james.png";
 
     if(this.direction === 0){
       frame = 0;

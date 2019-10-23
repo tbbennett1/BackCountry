@@ -7,7 +7,7 @@ class Obstacles {
 
   newObstacle() {
     let obsImage = new Image();
-    obsImage.src = "../Obstacles.png";
+    obsImage.src = "./Obstacles.png";
     let frameIndex = Math.floor(Math.random() * 5) * 50;
   
     return ({
