@@ -1,5 +1,5 @@
 # BackCountry
-
+![Web Site System](BackCountryGIF.gif)
 ## Background
 This is a JavaScript based single-player game that is fully inspired by the classic SkiFree PC game created by Chris Pirih. The player is a snowboarder free riding down a mountain, and the goal is to get as far as possible without running into obstacles. If you run into too many obstacles then you better speed up because the Yeti is coming to get you!
 
