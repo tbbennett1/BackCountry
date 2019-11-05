@@ -1,0 +1,15 @@
+body{
+  position: relative;
+}
+
+.links {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  font-size: 40px;
+  color: darkgreen;
+}
+
+.links > i{
+  margin: 10px;
+}

@@ -41,7 +41,7 @@ class Game {
     }
     // Score
     ctx.textAlign = "start";
-    ctx.font = "14px Arial";
+    ctx.font = "24px Arial";
     ctx.fillStyle = 'darkgreen';
     ctx.fillText(`Score: ${Math.floor((this.score - 1) / 5)} feet`, 40, 50);
     //Level 1
