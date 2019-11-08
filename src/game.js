@@ -52,7 +52,7 @@ class Game {
     this.obstacles = this.obstacles.filter(obstacle => (obstacle.posY > 0));
     // Move obstacles up and then redraw
     this.obstacles.forEach(obstacle => {
-      obstacle.posY = obstacle.posY - 5;
+      obstacle.posY = obstacle.posY - 0.5;
       this.gameObstacles.draw(obstacle);
       // detect a crash
       if (this.boarder.posX < (obstacle.posX + 25) 
@@ -77,7 +77,7 @@ class Game {
   start() {
     if(this.game){
       this.game = false
-      this.gameInterval = setInterval(this.draw.bind(this), 10);
+      this.gameInterval = setInterval(this.draw.bind(this), 50);
     }
   }
 
