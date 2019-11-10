@@ -57,6 +57,7 @@ class Game {
     //Delete obstacles that are off screen
     this.obstacles = this.obstacles.filter(obstacle => (obstacle.posY > 0));
     // Move obstacles up and then redraw
+    debugger
     this.obstacles.forEach(obstacle => {
       obstacle.posY = obstacle.posY - 1;
       this.gameObstacles.draw(obstacle);
