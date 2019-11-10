@@ -44,26 +44,30 @@ class Game {
     ctx.font = "24px Arial";
     ctx.fillStyle = 'darkgreen';
     ctx.fillText(`Score: ${Math.floor((this.score - 1) / 5)} feet`, 40, 50);
+
+    this.levels();
+    this.boarder.draw();
+  }
+
+  levels(){
     //Level 1
-    for(let i = 0; this.obstacles.length < 20; i++){
+    for (let i = 0; this.obstacles.length < 5; i++) {
       this.obstacles.push(this.gameObstacles.newObstacle());
     }
     //Delete obstacles that are off screen
     this.obstacles = this.obstacles.filter(obstacle => (obstacle.posY > 0));
     // Move obstacles up and then redraw
     this.obstacles.forEach(obstacle => {
-      obstacle.posY = obstacle.posY - 0.1;
+      obstacle.posY = obstacle.posY - 1;
       this.gameObstacles.draw(obstacle);
       // detect a crash
-      if (this.boarder.posX < (obstacle.posX + 25) 
-          && this.boarder.posX > (obstacle.posX - 25) 
-          && this.boarder.posY < (obstacle.posY + 25)
-          && this.boarder.posY > (obstacle.posY - 25)){
+      if (this.boarder.posX < (obstacle.posX + 25)
+        && this.boarder.posX > (obstacle.posX - 25)
+        && this.boarder.posY < (obstacle.posY + 25)
+        && this.boarder.posY > (obstacle.posY - 25)) {
         this.handleCrash();
       }
     })
-
-    this.boarder.draw();
   }
 
   handleEvent(e) {
@@ -77,7 +81,7 @@ class Game {
   start() {
     if(this.game){
       this.game = false
-      this.gameInterval = setInterval(this.draw.bind(this), 100);
+      this.gameInterval = setInterval(this.draw.bind(this), 500);
     }
   }
 
