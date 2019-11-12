@@ -51,16 +51,18 @@ class Game {
 
   levels(){
     //Level 1
-    for (let i = 0; this.obstacles.length < 5; i++) {
+    for (let i = 0; this.obstacles.length < 15; i++) {
       this.obstacles.push(this.gameObstacles.newObstacle());
     }
+
     //Delete obstacles that are off screen
     this.obstacles = this.obstacles.filter(obstacle => (obstacle.posY > 0));
+
     // Move obstacles up and then redraw
-    debugger
     this.obstacles.forEach(obstacle => {
-      obstacle.posY = obstacle.posY - 1;
+      obstacle.posY = obstacle.posY - 3;
       this.gameObstacles.draw(obstacle);
+
       // detect a crash
       if (this.boarder.posX < (obstacle.posX + 25)
         && this.boarder.posX > (obstacle.posX - 25)
@@ -82,7 +84,7 @@ class Game {
   start() {
     if(this.game){
       this.game = false
-      this.gameInterval = setInterval(this.draw.bind(this), 500);
+      this.gameInterval = setInterval(this.draw.bind(this), 25);
     }
   }
 
