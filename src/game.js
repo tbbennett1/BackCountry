@@ -50,19 +50,41 @@ class Game {
   }
 
   levels(){
-    let obsAmount = 5;
+    let obsAmount = 7;
     let obsSpeed = 3;
 
-    if(this.score >= 500 && this.score < 1000){
+    if(this.score < 500){
+      this.ctx.textAlign = "center";
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = "darkgreen";
+      this.ctx.fillText(`LEVEL 1`, (this.cw / 2), 40);
+    }else if(this.score >= 500 && this.score < 1000){
+      this.ctx.textAlign = "center";
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = "darkgreen";
+      this.ctx.fillText(`LEVEL 2`, (this.cw / 2), 40);
       clearInterval(this.gameInterval);
       this.gameInterval = setInterval(this.draw.bind(this), 20);
-      obsAmount = 10;
-      obsSpeed = 5
-    }else if(this.score >= 1000){
+      obsAmount = 8;
+      obsSpeed = 4
+    }else if(this.score >= 1000 && this.score < 1500){
+      this.ctx.textAlign = "center";
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = "darkgreen";
+      this.ctx.fillText(`LEVEL 3`, (this.cw / 2), 40);
       clearInterval(this.gameInterval);
       this.gameInterval = setInterval(this.draw.bind(this), 15);
-      obsAmount = 15;
-      obsSpeed = 10;
+      obsAmount = 9;
+      obsSpeed = 5;
+    }else if(this.score >= 1500){
+      this.ctx.textAlign = "center";
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = "darkgreen";
+      this.ctx.fillText(`LEVEL 4`, (this.cw / 2), 40);
+      clearInterval(this.gameInterval);
+      this.gameInterval = setInterval(this.draw.bind(this), 12);
+      obsAmount = 10;
+      obsSpeed = 6;
     }
 
     for (let i = 0; this.obstacles.length < obsAmount; i++) {
