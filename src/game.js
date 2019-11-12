@@ -43,24 +43,36 @@ class Game {
     ctx.textAlign = "start";
     ctx.font = "24px Arial";
     ctx.fillStyle = 'darkgreen';
-    ctx.fillText(`Score: ${Math.floor((this.score - 1) / 5)} feet`, 40, 50);
+    ctx.fillText(`Score: ${Math.floor(this.score / 5)} feet`, 40, 50);
 
     this.levels();
     this.boarder.draw();
   }
 
   levels(){
-    //Level 1
-    for (let i = 0; this.obstacles.length < 15; i++) {
-      this.obstacles.push(this.gameObstacles.newObstacle());
+    let obsAmount = 5;
+    let obsSpeed = 3;
+
+    if(this.score >= 500 && this.score < 1000){
+      clearInterval(this.gameInterval);
+      this.gameInterval = setInterval(this.draw.bind(this), 20);
+      obsAmount = 10;
+      obsSpeed = 5
+    }else if(this.score >= 1000){
+      clearInterval(this.gameInterval);
+      this.gameInterval = setInterval(this.draw.bind(this), 15);
+      obsAmount = 15;
+      obsSpeed = 10;
     }
 
+    for (let i = 0; this.obstacles.length < obsAmount; i++) {
+      this.obstacles.push(this.gameObstacles.newObstacle());
+    }
     //Delete obstacles that are off screen
     this.obstacles = this.obstacles.filter(obstacle => (obstacle.posY > 0));
-
     // Move obstacles up and then redraw
     this.obstacles.forEach(obstacle => {
-      obstacle.posY = obstacle.posY - 3;
+      obstacle.posY = obstacle.posY - obsSpeed;
       this.gameObstacles.draw(obstacle);
 
       // detect a crash
