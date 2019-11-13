@@ -116,8 +116,10 @@ class Game {
   handleEvent(e) {
     const keycode = e.keyCode;
 
-    if (keycode === 32 || keycode === 40 && this.game) {
+    if (keycode === 32 && this.game) {
       this.start();
+    }else if(keycode === 32 && !this.game){
+      location.reload(true);
     }
   }
 
@@ -130,7 +132,7 @@ class Game {
 
   handleCrash() {
     clearInterval(this.gameInterval);
-    if(this.lives <= 0){
+    if(this.lives <= 1){
       this.gameOver();
     }else{
       this.lives--;
@@ -149,6 +151,14 @@ class Game {
     this.ctx.font = "32px Arial bold";
     this.ctx.fillStyle = "darkred";
     this.ctx.fillText(`GAME OVER`, (this.cw / 2), (this.ch / 2));
+    this.ctx.textAlign = "center";
+    this.ctx.font = "24px Arial bold";
+    this.ctx.fillStyle = "darkgreen";
+    this.ctx.fillText(`Final Score: ${Math.floor(this.score / 5)} feet`, (this.cw / 2), (this.ch / 2) + 35);
+    this.ctx.textAlign = "center";
+    this.ctx.font = "20px Arial bold";
+    this.ctx.fillStyle = "darkred";
+    this.ctx.fillText(`Press Space Bar to Try Again`, (this.cw / 2), (this.ch / 2) + 70);
   }
 
 }
