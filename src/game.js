@@ -7,6 +7,7 @@ class Game {
     this.cw = canvas.width = window.innerWidth;
     this.ch = canvas.height = window.innerHeight;
     this.score = 0;
+    this.lives = 3;
     this.game = true;
     this.obstacles = [];
     this.obsPosY = this.ch - 50;
@@ -44,6 +45,11 @@ class Game {
     ctx.font = "24px Arial";
     ctx.fillStyle = 'darkgreen';
     ctx.fillText(`Score: ${Math.floor(this.score / 5)} feet`, 40, 50);
+    // Lives
+    ctx.textAlign = "start";
+    ctx.font = "24px Arial";
+    ctx.fillStyle = 'darkgreen';
+    ctx.fillText(`Lives: ${this.lives}`, 40, 80);
 
     this.levels();
     this.boarder.draw();
@@ -124,11 +130,25 @@ class Game {
 
   handleCrash() {
     clearInterval(this.gameInterval);
-    this.game = true;
+    if(this.lives <= 0){
+      this.gameOver();
+    }else{
+      this.lives--;
+      // Move James away from obstacle before restarting
+      this.obstacles.forEach(obstacle => {
+        obstacle.posY = obstacle.posY - 50;
+      })
+      this.game = true;
+      this.start();
+    }
+  }
+
+  gameOver(){
+    clearInterval(this.gameInterval);
     this.ctx.textAlign = "center";
-    this.ctx.font = "20px Arial";
+    this.ctx.font = "32px Arial bold";
     this.ctx.fillStyle = "darkred";
-    this.ctx.fillText(`You Crashed! Tap the Down Arrow to get up!`, (this.cw / 2), (this.ch / 10));
+    this.ctx.fillText(`GAME OVER`, (this.cw / 2), (this.ch / 2));
   }
 
 }
