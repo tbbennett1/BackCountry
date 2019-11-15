@@ -138,6 +138,10 @@ class Game {
       this.lives--;
       // Move James away from obstacle before restarting
       this.obstacles.forEach(obstacle => {
+        this.ctx.textAlign = "center";
+        this.ctx.font = "32px Arial bold";
+        this.ctx.fillStyle = "darkred";
+        this.ctx.fillText(`OUCH!`, (this.cw / 2), (this.ch / 2));
         obstacle.posY = obstacle.posY - 50;
       })
       this.game = true;
