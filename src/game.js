@@ -136,6 +136,7 @@ class Game {
       this.gameOver();
     }else{
       this.lives--;
+      clearInterval(this.gameInterval);
       // Move James away from obstacle before restarting
       this.obstacles.forEach(obstacle => {
         this.ctx.textAlign = "center";
