@@ -82,7 +82,7 @@ class Game {
       this.gameInterval = setInterval(this.draw.bind(this), 15);
       obsAmount = 20;
       obsSpeed = 5;
-    }else if(this.score >= 1500){
+    }else if(this.score >= 1500 && this.score < 2000){
       this.ctx.textAlign = "center";
       this.ctx.font = "20px Arial";
       this.ctx.fillStyle = "darkgreen";
@@ -91,6 +91,15 @@ class Game {
       this.gameInterval = setInterval(this.draw.bind(this), 12);
       obsAmount = 25;
       obsSpeed = 6;
+    }else if(this.score >= 2000){
+      this.ctx.textAlign = "center";
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = "darkgreen";
+      this.ctx.fillText(`LEVEL 5`, (this.cw / 2), 40);
+      clearInterval(this.gameInterval);
+      this.gameInterval = setInterval(this.draw.bind(this), 10);
+      obsAmount = 30;
+      obsSpeed = 7;
     }
 
     for (let i = 0; this.obstacles.length < obsAmount; i++) {
