@@ -154,7 +154,7 @@ class Game {
         obstacle.posY = obstacle.posY - 50;
       })
       this.game = true;
-      setInterval(this.draw.bind(this), 500);
+      setInterval(this.start.bind(this), 500);
       this.start();
     }
   }
