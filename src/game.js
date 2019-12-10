@@ -7,7 +7,7 @@ class Game {
     this.cw = canvas.width = window.innerWidth;
     this.ch = canvas.height = window.innerHeight;
     this.score = 0;
-    this.lives = 3;
+    this.lives = 4;
     this.game = true;
     this.obstacles = [];
     this.obsPosY = this.ch - 50;
@@ -145,7 +145,6 @@ class Game {
       this.gameOver();
     }else{
       this.lives--;
-      clearInterval(this.gameInterval);
       // Move James away from obstacle before restarting
       this.obstacles.forEach(obstacle => {
         this.ctx.textAlign = "center";
@@ -155,12 +154,14 @@ class Game {
         obstacle.posY = obstacle.posY - 50;
       })
       this.game = true;
+      setInterval(this.draw.bind(this), 500);
       this.start();
     }
   }
 
   gameOver(){
-    clearInterval(this.gameInterval);
+    // clearInterval(this.gameInterval);
+    this.game = false;
     this.ctx.textAlign = "center";
     this.ctx.font = "32px Arial bold";
     this.ctx.fillStyle = "darkred";
