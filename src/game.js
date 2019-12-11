@@ -154,13 +154,13 @@ class Game {
         obstacle.posY = obstacle.posY - 50;
       })
       this.game = true;
-      setInterval(this.start.bind(this), 500);
-      this.start();
+      this.gameInterval = setInterval(this.draw.bind(this), 500);
+      setTimeout(() => (this.gameInterval = setInterval(this.draw.bind(this), 25)), 1000)
     }
   }
 
   gameOver(){
-    // clearInterval(this.gameInterval);
+    clearInterval(this.gameInterval);
     this.game = false;
     this.ctx.textAlign = "center";
     this.ctx.font = "32px Arial bold";
