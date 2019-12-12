@@ -82,7 +82,7 @@ class Game {
       this.gameInterval = setInterval(this.draw.bind(this), 15);
       obsAmount = 20;
       obsSpeed = 5;
-    }else if(this.score >= 1500 && this.score < 2000){
+    }else if(this.score >= 1500 && this.score < 2500){
       this.ctx.textAlign = "center";
       this.ctx.font = "20px Arial";
       this.ctx.fillStyle = "darkgreen";
@@ -91,7 +91,7 @@ class Game {
       this.gameInterval = setInterval(this.draw.bind(this), 12);
       obsAmount = 25;
       obsSpeed = 6;
-    }else if(this.score >= 2000){
+    }else if(this.score >= 2500){
       this.ctx.textAlign = "center";
       this.ctx.font = "20px Arial";
       this.ctx.fillStyle = "darkgreen";
