@@ -141,7 +141,6 @@ class Game {
 
   handleCrash() {
     clearInterval(this.gameInterval);
-    this.boarder.crash();
     if(this.lives <= 1){
       this.gameOver();
     }else{
@@ -154,6 +153,7 @@ class Game {
         this.ctx.fillText(`OUCH!`, (this.cw / 2), (this.ch / 2));
         obstacle.posY = obstacle.posY - 50;
       })
+      this.boarder.crash();
       this.game = true;
       setTimeout(this.start.bind(this), 1000);
     }
