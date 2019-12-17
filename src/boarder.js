@@ -47,6 +47,22 @@ class Boarder{
     }
   }
 
+  crash(){
+    const james = new Image();
+    james.src = "./james.png";
+    this.ctx.clearRect(this.posX, this.posY, 25, 25)
+    this.ctx.drawImage(
+      james,
+      125,
+      0,
+      25,
+      25,
+      this.posX,
+      this.posY,
+      50,
+      50);
+  }
+
   handleEvent(e) {
     const key = e.key;
  

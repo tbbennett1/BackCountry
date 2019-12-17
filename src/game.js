@@ -141,6 +141,7 @@ class Game {
 
   handleCrash() {
     clearInterval(this.gameInterval);
+    this.boarder.crash();
     if(this.lives <= 1){
       this.gameOver();
     }else{
