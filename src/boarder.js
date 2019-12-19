@@ -50,21 +50,6 @@ class Boarder{
     }
   }
 
-  // crash(){
-  //   const jamesCrash = new Image();
-  //   jamesCrash.src = "./james.png";
-  //   this.ctx.drawImage(
-  //     jamesCrash,
-  //     125,
-  //     0,
-  //     25,
-  //     25,
-  //     this.posX,
-  //     this.posY,
-  //     50,
-  //     50);
-  // }
-
   handleEvent(e) {
     const key = e.key;
  
