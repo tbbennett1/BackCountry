@@ -9,12 +9,15 @@ class Boarder{
     document.addEventListener('keydown', this.handleEvent.bind(this));
   }
 
-  draw() {
+  draw(crash) {
     let frame = 0;
     const james = new Image();
     james.src = "./james.png";
 
-    if(this.direction === 0){
+    //check if crashed first, if not draw is direction
+    if(crash){
+      frame = 125;
+    }else if(this.direction === 0){
       frame = 0;
     }else if(this.direction < 0 && this.direction > -6){
       frame = 25;
@@ -47,20 +50,20 @@ class Boarder{
     }
   }
 
-  crash(){
-    const jamesCrash = new Image();
-    jamesCrash.src = "./james.png";
-    this.ctx.drawImage(
-      jamesCrash,
-      125,
-      0,
-      25,
-      25,
-      this.posX,
-      this.posY,
-      50,
-      50);
-  }
+  // crash(){
+  //   const jamesCrash = new Image();
+  //   jamesCrash.src = "./james.png";
+  //   this.ctx.drawImage(
+  //     jamesCrash,
+  //     125,
+  //     0,
+  //     25,
+  //     25,
+  //     this.posX,
+  //     this.posY,
+  //     50,
+  //     50);
+  // }
 
   handleEvent(e) {
     const key = e.key;

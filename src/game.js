@@ -9,6 +9,7 @@ class Game {
     this.score = 0;
     this.lives = 4;
     this.game = true;
+    this.crash = false;
     this.obstacles = [];
     this.obsPosY = this.ch - 50;
     this.boarder = new Boarder(this.cw, this.ch, ctx);
@@ -52,7 +53,7 @@ class Game {
     ctx.fillText(`Lives: ${this.lives}`, 40, 80);
 
     this.levels();
-    this.boarder.draw();
+    this.boarder.draw(this.crash);
   }
 
   levels(){
@@ -134,12 +135,14 @@ class Game {
 
   start() {
     if(this.game){
-      this.game = false
+      this.game = false;
+      this.crash = false;
       this.gameInterval = setInterval(this.draw.bind(this), 25);
     }
   }
 
   handleCrash() {
+    this.crash = true;
     clearInterval(this.gameInterval);
     if(this.lives <= 1){
       this.gameOver();
@@ -153,7 +156,7 @@ class Game {
         this.ctx.fillText(`OUCH!`, (this.cw / 2), (this.ch / 2));
         obstacle.posY = obstacle.posY - 50;
       })
-      this.boarder.crash();
+      // this.boarder.crash();
       this.game = true;
       setTimeout(this.start.bind(this), 1000);
     }
