@@ -50,8 +50,6 @@ class Boarder{
   crash(){
     const jamesCrash = new Image();
     jamesCrash.src = "./james.png";
-    // need to remove prev boarder image
-    // this.ctx.clearRect(0, 0, this.cw, this.ch)
     this.ctx.drawImage(
       jamesCrash,
       125,
