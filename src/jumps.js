@@ -5,28 +5,33 @@ class Jumps {
     this.ctx = ctx;
   }
 
-  newObstacle() {
-    let obsImage = new Image();
-    obsImage.src = "./Obstacles.png";
-    let frameIndex = Math.floor(Math.random() * 5) * 50;
+  // newJump() {
+  //   let jumpImage = new Image();
+  //   jumpImage.src = "./Obstacles.png";
 
-    return ({
-      obs: obsImage,
-      frame: frameIndex,
-      posX: Math.floor(Math.random() * this.cw),
-      posY: this.ch + Math.floor(Math.random() * this.ch),
-    })
-  }
 
-  draw(obstacle) {
+  //   return ({
+  //     obs: obsImage,
+  //     frame: frameIndex,
+  //     posX: Math.floor(Math.random() * this.cw),
+  //     posY: this.ch + Math.floor(Math.random() * this.ch),
+  //   })
+  // }
+
+  draw() {
+    let jumpImage = new Image();
+    jumpImage.src = "./Obstacles.png";
+    let posX = Math.floor(Math.random() * this.cw);
+    let posY = this.ch + Math.floor(Math.random() * this.ch);
+
     this.ctx.drawImage(
-      obstacle.obs,
-      obstacle.frame,
+      jumpImage,
+      250,
       0,
       50,
       50,
-      obstacle.posX,
-      obstacle.posY,
+      posX,
+      posY,
       75,
       75);
   }
