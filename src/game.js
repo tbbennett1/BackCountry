@@ -1,4 +1,5 @@
 import Obstacles from "./obstacles.js";
+import Jumps from "./jumps.js";
 import Boarder from "./boarder.js";
 
 class Game {
@@ -13,6 +14,7 @@ class Game {
     this.obstacles = [];
     this.obsPosY = this.ch - 50;
     this.boarder = new Boarder(this.cw, this.ch, ctx);
+    this.jumps = new Jumps(this.cw, this.ch, ctx);
     this.gameObstacles = new Obstacles(this.cw, this.ch, ctx);
     document.addEventListener('keydown', this.handleEvent.bind(this));
     
